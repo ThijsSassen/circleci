@@ -51,6 +51,14 @@ executors:
       BUILD_TYPE: << parameters.build_type >>
     docker:
       - image: ubuntu:20.04
+  macos:
+    parameters:
+      <<: *build_parameters
+    environment:
+      ARCH: << parameters.arch >>
+      BUILD_TYPE: << parameters.build_type >>
+    macos:
+      xcode: 11.3.0
   windows:
     parameters:
       <<: *build_parameters
@@ -83,3 +91,6 @@ workflows:
       - build:
           name: "Windows 2019 Debug"
           target: { name: windows }
+      - build:
+          name: "macOS 11.3.0"
+          target: { name: macos }
